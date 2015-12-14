@@ -1,12 +1,16 @@
 #rPi CPU data
 
-import os
+from subprocess import PIPE, Popen
 
 def get_CPU_temp():
-	p = os.popen(['vcgencmd', 'measure_temp'], stdout=PIPE)
-	output, _error = p.communicate()
-	return float(output[output.index('=') + 1:output.rindex("'")])
+	p = Popen(['vcgencmd', 'measure_temp'], stdout=PIPE)
+	o, _error = p.communicate()
+	return o[:]
 	
 def main():
 	cpu_temp = get_CPU_temp()
 	print(cpu_temp)
+
+if __name__ == '__main__':
+	main()
+
