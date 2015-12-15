@@ -5,15 +5,16 @@ import psutil
 
 #returns cpu temp
 def get_CPU_temp():
-	p = Popen(['vcgencmd', 'measure_temp'], stdout=PIPE)
-	o, _error = p.communicate()
-	return float(o[5:-2])
+	p = Popen(['vcgencmd', 'measure_temp'], stdout=PIPE).communicate()[0]
+	return p[:-1].decode()
 	
 #returns core volatage
 def get_core_voltage():
-	p  = Popen(['vcgencmd', 'measure_volts', 'core'], stdout=PIPE)
-	o, _error = p.communicate()
-	return o
+	p  = Popen(['vcgencmd', 'measure_volts', 'core'], stdout=PIPE).communicate()[0]
+	return p[:-1].decode()
+
+#returns memory stats
+	
 
 def main():
 	cpu_temp = get_CPU_temp()
